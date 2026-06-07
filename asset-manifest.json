@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/budgetbeacon/static/css/main.b149d37e.css",
+    "main.js": "/budgetbeacon/static/js/main.3fe06598.js",
+    "index.html": "/budgetbeacon/index.html",
+    "main.b149d37e.css.map": "/budgetbeacon/static/css/main.b149d37e.css.map",
+    "main.3fe06598.js.map": "/budgetbeacon/static/js/main.3fe06598.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b149d37e.css",
+    "static/js/main.3fe06598.js"
+  ]
+}
