@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  password     String
+  currency     String        @default("USD")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  accounts     Account[]
+  categories   Category[]
+  transactions Transaction[]
+  budgets      Budget[]
+  alerts       Alert[]
+}
+
+model Account {
+  id           String        @id @default(uuid())
+  name         String
+  type         AccountType
+  balance      Float         @default(0)
+  currency     String        @default("USD")
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Category {
+  id           String        @id @default(uuid())
+  name         String
+  type         CategoryType
+  icon         String?
+  color        String?
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+  createdAt    DateTime      @default(now())
+}
+
+model Transaction {
+  id          String      @id @default(uuid())
+  amount      Float
+  type        TxnType
+  description String?
+  date        DateTime    @default(now())
+  userId      String
+  accountId   String
+  categoryId  String?
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account     Account     @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category    Category?   @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Budget {
+  id         String       @id @default(uuid())
+  name       String
+  amount     Float
+  spent      Float        @default(0)
+  period     BudgetPeriod
+  startDate  DateTime
+  endDate    DateTime
+  userId     String
+  categoryId String?
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category   Category?    @relation(fields: [categoryId], references: [id])
+  alerts     Alert[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+model Alert {
+  id        String      @id @default(uuid())
+  type      AlertType
+  message   String
+  threshold Float?
+  triggered Boolean     @default(false)
+  userId    String
+  budgetId  String?
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  budget    Budget?     @relation(fields: [budgetId], references: [id])
+  createdAt DateTime    @default(now())
+}
+
+enum AccountType {
+  CHECKING
+  SAVINGS
+  CREDIT
+  INVESTMENT
+  CASH
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+}
+
+enum TxnType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum BudgetPeriod {
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum AlertType {
+  BUDGET_THRESHOLD
+  BUDGET_EXCEEDED
+  SAVINGS_GOAL
+}
