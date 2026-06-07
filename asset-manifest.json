@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/BudgetBeacon-full-stack-app/static/css/main.b149d37e.css",
-    "main.js": "/BudgetBeacon-full-stack-app/static/js/main.60f435ef.js",
+    "main.js": "/BudgetBeacon-full-stack-app/static/js/main.d7ae30c5.js",
     "index.html": "/BudgetBeacon-full-stack-app/index.html",
     "main.b149d37e.css.map": "/BudgetBeacon-full-stack-app/static/css/main.b149d37e.css.map",
-    "main.60f435ef.js.map": "/BudgetBeacon-full-stack-app/static/js/main.60f435ef.js.map"
+    "main.d7ae30c5.js.map": "/BudgetBeacon-full-stack-app/static/js/main.d7ae30c5.js.map"
   },
   "entrypoints": [
     "static/css/main.b149d37e.css",
-    "static/js/main.60f435ef.js"
+    "static/js/main.d7ae30c5.js"
   ]
 }
